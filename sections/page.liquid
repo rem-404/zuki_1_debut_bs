@@ -1,0 +1,55 @@
+{% if section.settings.container == 'container' %}
+  {% assign container_class = 'container' %}
+{% else %}
+  {% assign container_class = 'container-fluid' %}
+{% endif %}
+
+<div class="{{ container_class }} class="my-5">
+  <h1>{{ page.title }}</h1>
+
+  {% if section.settings.show--date %}
+    <small>{{ page.published_at | date: '%B %d, %Y' }}</small>
+  {% endif %}
+  <hr>
+  <p>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet quam dolor quia nostrum, dolorum odio magnam adipisci, cum hic ea quibusdam deleniti praesentium dolore, quis molestiae vitae quas libero soluta cumque consequuntur? Sed repellat aperiam delectus, illo et, repudiandae dolore deserunt illum aliquam sapiente amet necessitatibus ratione minima ipsa iusto!
+  </p>
+  <p>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem perferendis quaerat facilis iste ipsum beatae aut, reprehenderit minus doloremque ab? Atque numquam nulla tenetur itaque, quod unde asperiores eius aperiam, tempora ea tempore magni nam doloremque minus labore aspernatur nisi reprehenderit, quae maxime provident ipsum omnis! Debitis ullam dolorum, animi voluptas accusantium minima quisquam omnis sequi sed veritatis deleniti neque, nam aliquid exercitationem. Asperiores dolores assumenda itaque eveniet aliquid, quis doloremque quasi suscipit expedita qui praesentium tempora dignissimos aperiam reiciendis? Sint soluta beatae, qui veritatis suscipit magnam magni deserunt officiis. Eveniet qui esse suscipit nihil ea tempora voluptatibus ullam perferendis.
+  </p>
+  <p>
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque facere unde eveniet odit, nihil cum, rem adipisci amet perferendis, ducimus obcaecati iste consectetur neque blanditiis consequatur laudantium architecto! Sequi aliquam, debitis tenetur facere vitae nemo?
+  </p>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Page settings",
+    "settings": [
+      {
+        "type": "select",
+        "id": "container",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "container",
+            "label": "Container"
+          },
+          {
+            "value": "container-fluid",
+            "label": "Container Fluid"
+          }
+        ],
+        "default": "container"
+      },
+      {
+        "type": "checkbox",
+        "id": "show--date",
+        "label": "Show Published Date",
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

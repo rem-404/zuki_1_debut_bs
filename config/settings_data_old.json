@@ -1,0 +1,26 @@
+{
+  "current": {
+    "section": {
+      "header": {
+        "type": "header",
+        "settings": {
+
+        }
+      },
+      "text-center": {
+        "type": "text-center",
+        "settings": {
+          "text_input": "Hello World"
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  },
+  "presets": {
+    "Default": {
+      
+    }
+  }
+}
