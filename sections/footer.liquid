@@ -1,0 +1,94 @@
+<footer class="footer-section bg-light py-3">
+  <div class="container">
+    <div class="row row-cols-{{ section.settings.col_num }}">
+      {% for block in section.blocks %}
+        {% assign item = block.settings %}
+        {% if block.type == 'link_list' %}
+          <div class="col">
+            <h5>{{ item.title }}</h5>
+            {% assign footer_link = item.menu %}
+            <ul class="list-unstyled text-small">
+              {% for link in linklists[footer_link].links %}
+                <li>
+                  <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+        {% else %}
+          <div class="col">
+            <img src="{{ item.logo | img_url: "medium" }}" alt="" class="logo">
+            <h5>{{ item.title }}</h5>
+            <p>{{ item.description }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "range",
+      "id": "col_num",
+      "default": 3,
+      "min": 2,
+      "max": 4,
+      "label": "Number of columns"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Store details",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Store information"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
+{% style %}
+  .logo {
+    height: 100px;
+  }
+{% endstyle %}

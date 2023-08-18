@@ -13,7 +13,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+
+      {% comment %} nav list {% endcomment %}
+      <ul class="navbar-nav me-auto">
         {% for link in linklists['main-menu'].links %}
           {% assign child_list_handle = link.title | handleize %}
           {% if linklists[child_list_handle].links != blank %}
@@ -37,6 +39,11 @@
           <a class="nav-link" href="/cart">Cart</a>
         </li>
       </ul>
+
+      {% comment %} search {% endcomment %}
+      <form action="/search" method="GET" role="search">
+        <input type="text" name="q" value="{{ search.terms | escape }}">
+      </form>
     </div>
   </div>
 </nav>
