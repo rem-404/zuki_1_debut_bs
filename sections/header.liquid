@@ -13,7 +13,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-
       {% comment %} nav list {% endcomment %}
       <ul class="navbar-nav me-auto">
         {% for link in linklists['main-menu'].links %}
@@ -40,22 +39,40 @@
         </li>
       </ul>
 
+      {% comment %} customer login {% endcomment %}
+      <ul class="navbar-nav">
+        {% if shop.customer_accounts_enabled %}
+          {% if customer %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ routes.account_url }}">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ routes.account_logout_url }}">Logout</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ routes.account_login_url }}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ routes.account_register_url }}">Register</a>
+            </li>
+          {% endif %}
+        {% endif %}
+        <li class="nav-item"></li>
+      </ul>
+
       {% comment %} search {% endcomment %}
       <form action="/search" method="GET" role="search">
-        <input type="text" name="q" value="{{ search.terms | escape }}">
+        <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="search">
       </form>
     </div>
   </div>
 </nav>
 
 
-{% if shop.customer_accounts_enabled %}
-  {% if customer %}
-    <a href="/account">account</a>
-    {{ 'log out' | customer_logout_link }}
-  {% else %}
-    {{ 'log in ' | customer_login_link }}
-    {{ 'register' | customer_register_link }}
-  {% endif %}
-{% endif %}
-
+{% style %}
+  form input {
+    border-radius: 5px;
+    outline: none;
+  }
+{% endstyle %}

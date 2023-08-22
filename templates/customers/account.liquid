@@ -1,26 +1,69 @@
 <!-- /templates/customers/account.liquid -->
 
-{% if customer.default_address %}
-  <h2>Address</h2>
-  <p>{{ customer.default_address.address1 }}</p>
-  {% if customer.default_address.address2 != "" %}
-    <p>{{ customer.default_address.address2 }}</p>
-  {% endif %}
-  <p>{{ customer.default_address.city}}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</p>
-  <p>{{ customer.default_address.zip }}</p>
-  <p>{{ customer.default_address.phone }}</p>
-{% endif %}
+<div class="container my-5">
+  <div class="row">
+    
+    {% comment %} Address {% endcomment %}
+    <div class="col-12 col-md-4 my">
+      <h2 class="mb-3">Account</h2>
+      {% if customer.default_address %}
+        <p>{{ customer.default_address.address1 }}</p>
+        {% if customer.default_address.address2 != "" %}
+          <p>{{ customer.default_address.address2 }}</p>
+        {% endif %}
+        <p>{{ customer.default_address.city}}, {% if address.province_code %}{{ customer.default_address.province_code }}, {% endif %}{{ customer.default_address.country }}</p>
+        <p>{{ customer.default_address.zip }}</p>
+        <p>{{ customer.default_address.phone }}</p>
 
-<div id="customer_orders">
-  <h2>Orders</h2>
-  {% paginate customer.orders by 10 %}
-  {% if customer.orders.size != 0 %}
-    {% for order in customer.orders %}
-      <!-- order details here -->
-    {% endfor %}
-  {% else %}
-    <p>You haven't placed any orders yet.</p>
-  {% endif %}
-  {{ paginate | default_pagination }}
-  {% endpaginate %}
+      {% endif %}
+      <a href="{{ routes.account_addresses_url }}" class="btn btn-light">View address
+      <span class="badge bg-success">{{ customer.addresses_count }}</span>
+      </a>
+    </div>
+
+    {% comment %} orders {% endcomment %}
+    <div class="col-12 col-md-8">
+      <div id="customer_orders">
+        <h2>Orders</h2>
+        {% paginate customer.orders by 10 %}
+        {% if customer.orders.size != 0 %}
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Order number</th>
+                <th>Order Status</th>
+                <th>Payment Status</th>
+                <th>Order date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+                <tr>
+                  <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+                  <td><span class="badge bg-primary">{{ order.fulfillment_status_label }}</span></td>
+                  <td><span class="badge bg-success">{{ order.financial_status_label }}</span></td>
+                  <td>{{ order.created_at | time_tag: format: 'date' }}</td>
+                  <td>{{ order.total_price | money }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          
+          <!-- order details here -->
+        {% else %}
+          <p>You haven't placed any orders yet.</p>
+        {% endif %}
+        {{ paginate | default_pagination }}
+        {% endpaginate %}
+      </div>
+    </div>
+  </div>
 </div>
+
+
+{% style %}
+  .my p {
+    margin: 0;
+  }
+{% endstyle %}

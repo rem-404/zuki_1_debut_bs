@@ -1,21 +1,27 @@
 <!-- /templates/customers/register.liquid -->
 
-{% form 'create_customer' %}
-
-{{ form.errors | default_errors }}
-
-<label for="first_name">First Name</label>
-<input type="text" value="" name="customer[first_name]" size="30" />
-
-<label for="last_name">Last Name</label>
-<input type="text" value="" name="customer[last_name]" size="30" />
-
-<label for="email">Email Address</label>
-<input type="email" value="" name="customer[email]" size="30" />
-
-<label for="password">Password</label>
-<input type="password" value="" name="customer[password]" size="30" />
-
-<input type="submit" value="Create" />
-
-{% endform %}
+<div class="container py-5 my-5">
+  <div class="reg-form">
+    <h2>Register</h2>
+    {% form 'create_customer' %}
+    
+      {% comment %} error {% endcomment %}
+      {% render 'form-error', form: form %}
+      
+      <label for="first_name">First Name</label>
+      <input type="text" value="" name="customer[first_name]" size="30" class="form-control" />
+      
+      <label for="last_name">Last Name</label>
+      <input type="text" value="" name="customer[last_name]" size="30" class="form-control" />
+      
+      <label for="email">Email Address</label>
+      <input type="email" value="" name="customer[email]" size="30" class="form-control" />
+      
+      <label for="password">Password</label>
+      <input type="password" value="" name="customer[password]" size="30" class="form-control" />
+      
+      <input type="submit" value="Submit" class='btn btn-primary w-100' />
+    
+    {% endform %}
+  </div>
+</div>
